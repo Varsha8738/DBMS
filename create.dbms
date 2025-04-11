@@ -1,0 +1,29 @@
+TABLE CREATION
+#DEPARTMENTS_TABLE
+
+CREATE TABLE departments (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) UNIQUE,
+    location VARCHAR(50) NOT NULL
+);
+#inserting data
+INSERT INTO departments VALUES
+(1, 'HR', 'New York'),
+(2, 'Finance', 'Boston'),
+(3, 'IT', 'Chicago'),
+(4, 'Marketing', 'Los Angeles');
+
+
+#EMPLOYEES_TABLE
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    salary NUMBER(10, 2) CHECK (salary > 0),
+    department_id INT
+);
+#inserting data
+INSERT INTO employees (id, name, salary, department_id) VALUES (1, 'Alice', 60000, 1);
+INSERT INTO employees (id, name, salary, department_id) VALUES (2, 'Bob', 50000, 1);
+INSERT INTO employees (id, name, salary, department_id) VALUES (3, 'Charlie', 70000, 2);
+INSERT INTO employees (id, name, salary, department_id) VALUES (4, 'Diana', 40000, 2);
+INSERT INTO employees (id, name, salary, department_id) VALUES (5, 'Eve', 55000, 3);
