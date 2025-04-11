@@ -1,0 +1,26 @@
+6.A)
+🔹 TO_CHAR – Convert Date/Number to String
+SELECT name, TO_CHAR(hire_date, 'DD-Mon-YYYY') AS joining_date
+FROM employees;
+SELECT name, TO_CHAR(salary, '999,999.00') AS formatted_salary
+FROM employees;
+🔹 TO_DATE – Convert String to Date
+SELECT TO_DATE('10-Apr-2025', 'DD-Mon-YYYY') AS formatted_date
+FROM dual;
+🔹 TO_NUMBER – Convert String to Number
+SELECT TO_NUMBER('15000') + 500 AS updated_salary
+FROM dual;
+✅ 6.B) 
+DECLARE
+    v_num1 NUMBER := 10;
+    v_num2 NUMBER := 0;
+    v_result NUMBER;
+BEGIN
+    v_result := v_num1 / v_num2;
+    DBMS_OUTPUT.PUT_LINE('Result: ' || v_result);
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('Error: Division by zero!');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Unknown error occurred.');
+END;
