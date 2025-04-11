@@ -1,0 +1,55 @@
+✅ 5.A) Queries for Creation and Dropping of Views
+🔹 Create a View: high_salary_employees
+CREATE VIEW high_salary_employees AS
+SELECT id, name, salary
+FROM employees
+WHERE salary > 50000;
+🔹 Select from the View
+SELECT * FROM high_salary_employees;
+🔹 Drop the View
+DROP VIEW high_salary_employees;
+✅ 5.B) PL/SQL Program using NESTED IF, CASE, CASE expression, NULLIF, and COALESCE
+🔧 Full Program:
+DECLARE
+    v_marks NUMBER := 75;
+    v_grade VARCHAR2(10);
+    v_bonus NUMBER := 1000;
+    v_commission NUMBER := NULL;
+    v_final_bonus NUMBER;
+BEGIN
+    -- NESTED IF
+    IF v_marks >= 90 THEN
+        v_grade := 'A+';
+    ELSIF v_marks >= 75 THEN
+        IF v_marks >= 80 THEN
+            v_grade := 'A';
+        ELSE
+            v_grade := 'B+';
+        END IF;
+    ELSE
+        v_grade := 'C';
+    END IF;
+
+    -- CASE statement
+    CASE 
+        WHEN v_grade = 'A+' THEN DBMS_OUTPUT.PUT_LINE('Outstanding');
+        WHEN v_grade = 'A' THEN DBMS_OUTPUT.PUT_LINE('Excellent');
+        WHEN v_grade = 'B+' THEN DBMS_OUTPUT.PUT_LINE('Very Good');
+        ELSE DBMS_OUTPUT.PUT_LINE('Needs Improvement');
+    END CASE;
+
+    -- CASE expression
+    DBMS_OUTPUT.PUT_LINE(
+        'Performance: ' || CASE 
+            WHEN v_marks >= 90 THEN 'Topper'
+            WHEN v_marks >= 75 THEN 'Above Average'
+            ELSE 'Average'
+        END
+    );
+
+    -- NULLIF and COALESCE
+    v_final_bonus := COALESCE(NULLIF(v_commission, 0), v_bonus);
+    DBMS_OUTPUT.PUT_LINE('Final Bonus: ' || v_final_bonus);
+
+    DBMS_OUTPUT.PUT_LINE('Grade: ' || v_grade);
+END;
