@@ -1,0 +1,37 @@
+7a:                        
+-- Concatenation
+SELECT name || ' - ' || job_title AS full_info FROM employees;
+
+-- lpad, rpad
+SELECT LPAD(name, 10, '*') AS padded_left, RPAD(name, 10, '#') AS padded_right FROM employees;
+
+-- ltrim, rtrim
+SELECT LTRIM('   Hello') AS left_trimmed, RTRIM('Hello   ') AS right_trimmed FROM dual;
+
+-- lower, upper, initcap
+SELECT LOWER(name), UPPER(name), INITCAP(name) FROM employees;
+
+-- length
+SELECT name, LENGTH(name) AS name_length FROM employees;
+
+-- substr
+SELECT SUBSTR(name, 1, 3) AS short_name FROM employees;
+
+-- instr
+SELECT INSTR(name, 'a') AS position_of_a FROM employees;
+7b:
+7b:            DECLARE
+    CURSOR emp_cursor(p_dept_id NUMBER) IS
+        SELECT name, salary FROM employees WHERE department_id = p_dept_id;
+
+    v_name employees.name%TYPE;
+    v_salary employees.salary%TYPE;
+BEGIN
+    OPEN emp_cursor(2);
+    LOOP
+        FETCH emp_cursor INTO v_name, v_salary;
+        EXIT WHEN emp_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ', Salary: ' || v_salary);
+    END LOOP;
+    CLOSE emp_cursor;
+END;
