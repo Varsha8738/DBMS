@@ -1,0 +1,36 @@
+1a)
+SELECT name FROM employees
+WHERE dept_id IN (SELECT dept_id FROM departments WHERE dept_name LIKE 'S%');
+🔹 2. ANY
+SELECT name FROM employees
+WHERE salary > ANY (SELECT salary FROM employees WHERE dept_id = 10);
+🔹 3. ALL
+SELECT name FROM employees
+WHERE salary > ALL (SELECT salary FROM employees WHERE dept_id = 20);
+🔹 4. EXISTS
+SELECT name FROM employees e
+WHERE EXISTS (
+    SELECT 1 FROM departments d WHERE d.dept_id = e.dept_id
+);
+
+1b)
+1b:DECLARE
+    CURSOR emp_cursor(p_dept_id employees.department_id%TYPE) IS
+        SELECT name, salary
+        FROM employees
+        WHERE department_id = p_dept_id;
+
+    v_name employees.name%TYPE;
+    v_salary employees.salary%TYPE;
+BEGIN
+    OPEN emp_cursor(1);
+
+    LOOP
+        FETCH emp_cursor INTO v_name, v_salary;
+        EXIT WHEN emp_cursor%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ' | Salary: ' || v_salary);
+    END LOOP;
+
+    CLOSE emp_cursor;
+END;
