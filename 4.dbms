@@ -1,0 +1,26 @@
+4a)
+-->SELECT department_id, SUM(salary) AS total_salary
+FROM employees
+GROUP BY department_id
+
+-->SELECT department_id, SUM(salary) AS total_salary
+FROM employees
+HAVING SUM(salary) BETWEEN 100000 AND 200000;
+
+4b)
+CREATE OR REPLACE PROCEDURE get_employee_details (
+    p_emp_id IN employees.id%TYPE,
+    p_emp_name OUT employees.name%TYPE,
+    p_emp_salary OUT employees.salary%TYPE
+)
+IS
+BEGIN
+    SELECT name, salary
+    INTO p_emp_name, p_emp_salary
+    FROM employees
+    WHERE id = p_emp_id;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        p_emp_name := 'Not Found';
+        p_emp_salary := 0;
+END;
